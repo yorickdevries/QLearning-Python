@@ -13,6 +13,7 @@ class Maze:
         left = Action("left")
         right = Action("right")
         self.actions = [up, down, left, right]
+        self.states = []
         # read in file
         try:
             f = open(file, "r")
@@ -20,7 +21,6 @@ class Maze:
             dimensions = lines[0].split(" ")
             w = int(dimensions[0])
             h = int(dimensions[1])
-            self.states = []
             y = 0
             for i in range(1, h + 1):
                 line = lines[i].split(" ")
@@ -45,42 +45,35 @@ class Maze:
         # you dont need to use this directly, use the method getValidActions()
         return state.type == "1"
 
-"""
-	public ArrayList<Action> getValidActions(Agent r) {
-		//use this method to retrieve the list of possible actions for an agent
-		//the method checks if surrounding states are "walkable" and if the agent is not going out of the maze dimensions.
-		//The method returns the list of actions
-		ArrayList<Action>actionList=new ArrayList<Action>();
-		if (r.y>0 && isWalkable(states[r.y-1][r.x]))
-			actionList.add(actions[0]);
-		if (r.y<states.length-1 && isWalkable(states[r.y+1][r.x]))
-			actionList.add(actions[1]);
-		if (r.x>0 && isWalkable(states[r.y][r.x-1]))
-			actionList.add(actions[2]);
-		if (r.x<states[r.y].length-1 && isWalkable(states[r.y][r.x+1]))
-			actionList.add(actions[3]);
-		return actionList;
-	}
-	
-	public void setR(State s, double r) {
-		//use this method to set the reward of the end state to the value in teh excercise
-		//you can also play around with setting other states to a non-0 reward.
-		//this is called reward shaping, and you can speed up the learning but also 
-		//teach the agent a suboptimal solution inadvertible.
-		R.put(s,  new Double(r));
-	}
-	
-	public double getR(State s) {
-		//use this method te retreive the reward for a particular state
-		if (R.containsKey(s))
-			return R.get(s).doubleValue();
-		return 0;
-	}
-	
-	public State getState(int x, int y) {
-		//simply returns the state at the location the agent is at
-		//use this to find the current state of the agent, or use Agent.getState(Maze m)
-		return states[y][x];
-	}
-}
-"""
+    def get_valid_actions(self, agent):
+        # use this method to retrieve the list of possible actions for an agent
+        # the method checks if surrounding states are "walkable" and if the agent is not going out of the maze dimensions.
+        # The method returns the list of actions
+        action_list = []
+        if agent.y>0 and self.is_walkable(self.states[agent.y-1][agent.x]):
+            action_list.append(self.actions[0])
+        if agent.y<len(self.states)-1 and self.is_walkable(self.states[agent.y + 1][agent.x]):
+            action_list.append(self.actions[1])
+        if agent.x>0 and self.is_walkable(self.states[agent.y][agent.x - 1]):
+            action_list.append(self.actions[2])
+        if agent.x<len(self.states[agent.y]) - 1 and self.is_walkable(self.states[agent.y][agent.x + 1]):
+            action_list.append(self.actions[3])
+        return action_list
+
+    def set_rewards(self, state, reward):
+        # use this method to set the reward of the end state to the value in teh excercise
+        # you can also play around with setting other states to a non-0 reward.
+        # this is called reward shaping, and you can speed up the learning but also
+        # teach the agent a suboptimal solution inadvertible.
+        self.rewards[state] = float(reward)
+
+    def get_reward(self, state):
+        if state in self.rewards:
+            return float(self.rewards[state])
+        else:
+            return 0
+
+    def get_state(self, x, y):
+        # simply returns the state at the location the agent is at
+        # use this to find the current state of the agent, or use Agent.getState(Maze m)
+        return self.states[y][x]
