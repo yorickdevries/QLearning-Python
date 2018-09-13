@@ -6,6 +6,7 @@ from main.QLearning import QLearning
 
 class MyEGreedy:
 
+    @staticmethod
     def get_random_action(self, agent, maze):
         # TODO to select an action at random in State s
         return None
