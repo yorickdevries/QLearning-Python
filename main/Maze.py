@@ -1,48 +1,47 @@
+import traceback
+import sys
+from main.Action import Action
+from main.State import State
+
+
 class Maze:
+
     def __init__(self, file):
-        self.file = file
+        # to build a 2-d maze from a file
+        up = Action("up")
+        down = Action("down")
+        left = Action("left")
+        right = Action("right")
+        self.actions = [up, down, left, right]
+        # read in file
+        try:
+            f = open(file, "r")
+            lines = f.read().splitlines()
+            dimensions = lines[0].split(" ")
+            w = int(dimensions[0])
+            h = int(dimensions[1])
+            self.states = []
+            y = 0
+            for i in range(1, h + 1):
+                line = lines[i].split(" ")
+                states = []
+                self.states.append(states)
+                x = 0
+                for j in range(0, w):
+                    if line[j] != "":
+                        state = State(x, y, line[j])
+                        states.append(state)
+                        x += 1
+                y += 1
+        except FileNotFoundError:
+            print("Error reading maze file " + file)
+            traceback.print_exc()
+            sys.exit()
+        print("Ready reading maze file " + file)
+        self.rewards = {}
+
 
 """
-public class Maze {
-	private Action[] actions;
-	private State[][] states;
-	private HashMap<State, Double> R;
-	
-	public Maze(File file) {
-		//to build a 2-d maze from a file
-		actions=new Action[4];
-		actions[0]=new Action("up");
-		actions[1]=new Action("down");
-		actions[2]=new Action("left");
-		actions[3]=new Action("right");
-		
-		try {
-			RandomAccessFile r=new RandomAccessFile(file, "r");
-			StringTokenizer dims=new StringTokenizer(r.readLine(), " ");
-			int w=Integer.parseInt(dims.nextToken());
-			int h=Integer.parseInt(dims.nextToken());
-			states=new State[h][w];
-			int y=0;
-			String line=r.readLine();
-			while (line!=null && !line.trim().equals("")) {
-				int x=0;
-				StringTokenizer locs=new StringTokenizer(line, " ");
-				while (locs.hasMoreTokens())
-				{
-					states[y][x]=new State(locs.nextToken());
-					x++;
-				}
-				line=r.readLine();
-				y++;
-			}
-		} catch (Exception e) {
-			System.out.println("Error reading maze file "+file);
-			e.printStackTrace();
-			System.exit(0);
-		}
-		System.out.println("Ready reading maze file "+file);
-		R=new HashMap<State, Double>();
-	}
 	
 	private boolean isWalkable(State s) {
 		//the maze's way to check if you can walk on a particular state
