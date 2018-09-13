@@ -1,54 +1,37 @@
 class QLearning:
+
     def __init__(self):
+        # dictionary (State, <Action, Value>)
+        self.q = {}
 
-"""
-public abstract class QLearning {
-	private HashMap<State, HashMap<Action, Double>> Q;
+    def get_q(self, state, action):
+        # checks if it can find a value for <s,a> in q and returns it, if not return 0.
+        try:
+            action_values = self.q[state]
+            try:
+                value = action_values[action]
+                return value
+            except KeyError:
+                return 0
+        except KeyError:
+            return 0
 
-	public QLearning() {
+    def set_q(self, state, action, value):
+        # sets the value of am <s,a> pair to q
+        try:
+            action_values = self.q[state]
+            float_value = float(value)
+            action_values[action] = float_value
+        except KeyError:
+            # no entry known for s, make one and store the action value too
+            action_values = {}
+            float_value = float(value)
+            action_values[action] = float_value
+            self.q[state] = action_values
 
-
-		Q=new HashMap<State, HashMap<Action, Double>>();
-	}
-
-	public double getQ(State s, Action a) {
-		//checks if it can find a value for <s,a> in q and returns it, if not return 0.
-		 HashMap<Action, Double> actionValues=Q.get(s);
-		 if (actionValues!=null) {
-			 Double value=actionValues.get(a);
-			 if (value!=null)
-				 return value.doubleValue();
-			 else
-				 return 0;
-		 } else
-			 return 0;
-	}
-
-	public void setQ(State s, Action a, double q) {
-		//sets the value of am <s,a> pair to q
-		HashMap<Action, Double> actionValues=Q.get(s);
-		 if (actionValues!=null) {
-			 Double value=new Double(q);
-			 actionValues.put(a, value);
-		 } else {
-			 //no entry known for s, make one and store the action value too
-			 actionValues=new HashMap<Action, Double>();
-			 actionValues.put(a, q);
-			 Q.put(s, actionValues);
-		 }
-	}
-
-	public double[] getActionValues(State s, ArrayList<Action> actions) {
-		//returns the associated action values for all actions in <actions> in that order;
-		double[] result=new double[actions.size()];
-		int count=0;
-		for (Action a: actions) {
-			result[count++]=getQ(s, a);
-		}
-		return result;
-	}
-
-	public abstract void updateQ(State s, Action a, double r, State s_next, ArrayList<Action> possibleActions, double alfa, double gamma);
-}
-
-"""
+    def get_action_values(self, state, actions):
+        # returns the associated action values for all actions in <actions> in that order;
+        result = []
+        for action in actions:
+            result.append(self.q[state][action])
+        return result
