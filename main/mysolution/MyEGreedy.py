@@ -11,10 +11,12 @@ class MyEGreedy:
         # TODO to select an action at random in State s
         return None
 
+    @staticmethod
     def get_best_action(self, agent, maze, q_learning):
         # TODO to select the best possible action currently known in State s.
         return None
 
+    @staticmethod
     def get_egreedy_action(self, agent, maze, q_learning, epsilon):
         # TODO to select between random or best action selection based on epsilon.
         return None
