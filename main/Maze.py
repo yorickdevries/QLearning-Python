@@ -50,13 +50,13 @@ class Maze:
         # the method checks if surrounding states are "walkable" and if the agent is not going out of the maze dimensions.
         # The method returns the list of actions
         action_list = []
-        if agent.y>0 and self.is_walkable(self.states[agent.y-1][agent.x]):
+        if agent.y > 0 and self.is_walkable(self.states[agent.y-1][agent.x]):
             action_list.append(self.actions[0])
-        if agent.y<len(self.states)-1 and self.is_walkable(self.states[agent.y + 1][agent.x]):
+        if agent.y < len(self.states)-1 and self.is_walkable(self.states[agent.y + 1][agent.x]):
             action_list.append(self.actions[1])
-        if agent.x>0 and self.is_walkable(self.states[agent.y][agent.x - 1]):
+        if agent.x > 0 and self.is_walkable(self.states[agent.y][agent.x - 1]):
             action_list.append(self.actions[2])
-        if agent.x<len(self.states[agent.y]) - 1 and self.is_walkable(self.states[agent.y][agent.x + 1]):
+        if agent.x < len(self.states[agent.y]) - 1 and self.is_walkable(self.states[agent.y][agent.x + 1]):
             action_list.append(self.actions[3])
         return action_list
 
