@@ -6,7 +6,7 @@ class State:
         self.type = str(state_type)
 
     def __str__(self):
-        return "State(" + str(self.x) + ", " + str(self.y) + ", " + str(self.type) + ")"
+        return "State(x: " + str(self.x) + ", y: " + str(self.y) + ", " + str(self.type) + ")"
 
     def __eq__(self, other):
         return str(self) == str(other)
