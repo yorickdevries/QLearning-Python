@@ -60,7 +60,7 @@ class Maze:
             action_list.append(self.actions[3])
         return action_list
 
-    def set_rewards(self, state, reward):
+    def set_reward(self, state, reward):
         # use this method to set the reward of the end state to the value in teh excercise
         # you can also play around with setting other states to a non-0 reward.
         # this is called reward shaping, and you can speed up the learning but also
