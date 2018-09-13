@@ -40,15 +40,12 @@ class Maze:
         print("Ready reading maze file " + file)
         self.rewards = {}
 
+    def is_walkable(self, state):
+        # the maze's way to check if you can walk on a particular state
+        # you dont need to use this directly, use the method getValidActions()
+        return state.type == "1"
 
 """
-	
-	private boolean isWalkable(State s) {
-		//the maze's way to check if you can walk on a particular state
-		//you dont need to use this directly, use the method getValidActions()
-		return s.type.equals("1");
-	}
-	
 	public ArrayList<Action> getValidActions(Agent r) {
 		//use this method to retrieve the list of possible actions for an agent
 		//the method checks if surrounding states are "walkable" and if the agent is not going out of the maze dimensions.
