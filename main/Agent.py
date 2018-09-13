@@ -7,44 +7,24 @@ class Agent:
         self.y = start_y
         self.nr_of_actions_since_reset = 0
 
-"""
-package tudelft.rl;
+    def get_state(self, maze):
+        return maze.get_state(self.x, self.y)
 
-public class Agent {
-	public int x,y;
-	private int startX, startY;
-	public int nrOfActionsSinceReset=0;
-	
-	public Agent(int startX, int startY) {
-		this.startX=startX;
-		this.startY=startY;
-		x=startX;
-		y=startY;
-	}
-	public State getState(Maze m) {
-		return m.getState(this.x, this.y);
-	}
-	
-	public State doAction(Action a, Maze m) {
-		//executes an action and returns the new State the agent is in according to the Maze
-		nrOfActionsSinceReset++;
-		if (a.id.equals("up"))
-			y--;
-		if (a.id.equals("down"))
-			y++;
-		if (a.id.equals("left"))
-			x--;
-		if (a.id.equals("right"))
-			x++;
-		return getState(m);
-	}
-	
-	public void reset() {
-		System.out.println(nrOfActionsSinceReset);
-		x=startX;
-		y=startY;
-		nrOfActionsSinceReset=0;
-	}
-}
+    def do_action(self, action, maze):
+        # executes an action and returns the new State the agent is in according to the Maze
+        self.nr_of_actions_since_reset += 1
+        if action.id == "up":
+            self.y -= 1
+        if action.id == "down":
+            self.y += 1
+        if action.id == "left":
+            self.x -= 1
+        if action.id == "right":
+            self.x += 1
+        return self.get_state(maze)
 
-"""
+    def reset(self):
+        print(self.nr_of_actions_since_reset)
+        self.x = self.start_x
+        self.y = self.start_y
+        self.nr_of_actions_since_reset = 0
