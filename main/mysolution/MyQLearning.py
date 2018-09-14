@@ -1,6 +1,4 @@
-from main.Action import Action
 from main.QLearning import QLearning
-from main.State import State
 
 
 class MyQLearning(QLearning):

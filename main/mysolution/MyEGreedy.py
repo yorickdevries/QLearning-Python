@@ -1,9 +1,3 @@
-from main.Action import Action
-from main.Agent import Agent
-from main.Maze import Maze
-from main.QLearning import QLearning
-
-
 class MyEGreedy:
 
     def __init__(self):
