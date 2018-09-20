@@ -33,5 +33,5 @@ class QLearning:
         # returns the associated action values for all actions in <actions> in that order;
         result = []
         for action in actions:
-            result.append(self.q[state][action])
+            result.append(self.get_q(state, action))
         return result
